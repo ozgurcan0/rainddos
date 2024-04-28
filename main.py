@@ -4,7 +4,7 @@ import random
 import string
 import time
 
-target_host = "1.1.1.1"  # Change this to your target IP address
+target_host = "127.0.0.1"  # Change this to your target IP address
 target_port = 80  # Change this to your target port
 connection_count = 1000000  # Number of connections to create
 timeout = 0.1  # Timeout for connection attempts in seconds
